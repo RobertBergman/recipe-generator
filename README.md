@@ -31,16 +31,25 @@ npm install
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+3. Open [http://localhost:8060](http://localhost:8060) in your browser
 
 ### First Time Setup
 
-1. Click "Configure Settings" on the welcome screen
-2. Enter your OpenRouter API key
-3. Select your diet type and preferences
-4. Choose your location and preferred stores
-5. Set your serving size and any dietary restrictions
-6. Click "Save Settings"
+When you first visit the app, you'll see a welcome screen. Here's how to get started:
+
+1. **Click the "Settings" button** in the top-right corner of the navigation bar (gear icon)
+2. **Enter your OpenRouter API key** in the settings modal
+   - Get your API key at [https://openrouter.ai/keys](https://openrouter.ai/keys)
+   - Your key is stored **only in your browser's localStorage** - it never leaves your machine except when making API calls
+   - Each user brings their own API key, keeping costs and data private
+3. **Configure your preferences**:
+   - Select your diet type (Mediterranean, Keto, Vegan, etc.)
+   - Set your serving size
+   - Add any dietary restrictions (optional)
+   - Enter your location (optional)
+4. **Click "Save Settings"**
+
+> **Privacy Note**: Your API key and all data are stored locally in your browser. The app never saves your key to any backend database. This makes the app secure for multiple users - each person uses their own API key and keeps their data private.
 
 ### Using the App
 
@@ -88,6 +97,44 @@ npm run dev
 - Walmart
 - Target
 - Costco
+
+## Security & Multi-User Architecture
+
+This app is designed to be secure for multiple users without requiring user accounts or databases:
+
+### How It Works
+
+1. **Client-Side Storage**: Each user's API key, preferences, recipes, and meal plans are stored in their browser's localStorage
+2. **No Backend Database**: The app has no database - all data stays on the user's machine
+3. **Stateless API**: The backend only proxies API calls to OpenRouter and doesn't store any user data
+4. **Bring Your Own Key (BYOK)**: Each user provides their own OpenRouter API key
+5. **Cost Isolation**: Each user pays for their own API usage through their OpenRouter account
+6. **Data Privacy**: User data never leaves their browser except for temporary API calls
+
+### Where Your Data Lives
+
+- **API Key**: Stored in browser localStorage (never sent to backend except per-request)
+- **Preferences**: Stored in browser localStorage
+- **Recipes**: Stored in browser localStorage
+- **Meal Calendar**: Stored in browser localStorage
+- **Shopping Lists**: Generated on-the-fly from calendar data
+
+### Benefits
+
+- ✅ No user accounts or authentication needed
+- ✅ No database costs or management
+- ✅ Complete data privacy (data never leaves user's machine)
+- ✅ Each user pays for their own AI usage
+- ✅ Can be deployed as a static site
+- ✅ Works offline (after initial load)
+
+### For Deployment
+
+This app can be:
+- Deployed to any static hosting (Vercel, Netlify, etc.)
+- Used by unlimited users simultaneously
+- Each user's data remains isolated to their browser
+- No server-side storage or databases required
 
 ## Future Enhancements
 
