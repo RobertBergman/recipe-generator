@@ -35,7 +35,7 @@ export default function ShoppingListPage() {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              Your shopping list is empty because you haven't assigned any meals to your calendar yet.
+              Your shopping list is empty because you haven&apos;t assigned any meals to your calendar yet.
             </p>
             <p className="text-gray-600 dark:text-gray-400">
               Go to the Calendar page to assign recipes to your meal plan, and your shopping list will be automatically generated.

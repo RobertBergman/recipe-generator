@@ -1,4 +1,4 @@
-import { AppSettings, MealPlan, Recipe, MealType, WeeklyMealPlan, DayMeals } from '@/lib/types';
+import { AppSettings, MealPlan, Recipe, MealType, WeeklyMealPlan } from '@/lib/types';
 
 const SETTINGS_KEY = 'recipe-generator-settings';
 const MEAL_PLANS_KEY = 'recipe-generator-meal-plans';

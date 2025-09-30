@@ -34,15 +34,6 @@ export function RecipeLibrary({ onClose, fullPage = false }: RecipeLibraryProps)
   }, []);
 
   useEffect(() => {
-    filterRecipes();
-  }, [recipes, selectedMealType, searchQuery]);
-
-  const loadRecipes = () => {
-    const savedRecipes = storage.getRecipeLibrary();
-    setRecipes(savedRecipes);
-  };
-
-  const filterRecipes = () => {
     let filtered = recipes;
 
     // Filter by meal type
@@ -59,6 +50,11 @@ export function RecipeLibrary({ onClose, fullPage = false }: RecipeLibraryProps)
     }
 
     setFilteredRecipes(filtered);
+  }, [recipes, selectedMealType, searchQuery]);
+
+  const loadRecipes = () => {
+    const savedRecipes = storage.getRecipeLibrary();
+    setRecipes(savedRecipes);
   };
 
   const handleDeleteRecipe = (id: string) => {
