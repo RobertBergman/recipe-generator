@@ -25,6 +25,12 @@ export default function Home() {
     // Check settings on mount
     checkSettings();
 
+    // Load saved meal plan on mount
+    const savedMealPlan = storage.getCurrentMealPlan();
+    if (savedMealPlan.length > 0) {
+      setRecipes(savedMealPlan);
+    }
+
     // Listen for settings changes
     window.addEventListener('settingsChanged', checkSettings);
 
@@ -81,6 +87,8 @@ export default function Home() {
 
       console.log(`Successfully generated ${data.recipes.length} recipes`);
       setRecipes(data.recipes);
+      // Save to localStorage so it persists across page refreshes
+      storage.saveCurrentMealPlan(data.recipes);
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'An unexpected error occurred';
       console.error('Meal plan generation error:', errorMsg);

@@ -4,6 +4,7 @@ const SETTINGS_KEY = 'recipe-generator-settings';
 const MEAL_PLANS_KEY = 'recipe-generator-meal-plans';
 const RECIPE_LIBRARY_KEY = 'recipe-generator-library';
 const WEEKLY_CALENDAR_KEY = 'recipe-generator-weekly-calendar';
+const CURRENT_MEAL_PLAN_KEY = 'recipe-generator-current-meal-plan';
 
 export const storage = {
   getSettings: (): AppSettings | null => {
@@ -140,5 +141,22 @@ export const storage = {
   clearWeeklyCalendar: (): void => {
     if (typeof window === 'undefined') return;
     localStorage.removeItem(WEEKLY_CALENDAR_KEY);
+  },
+
+  // Current Meal Plan Management (for display on home page)
+  getCurrentMealPlan: (): Recipe[] => {
+    if (typeof window === 'undefined') return [];
+    const data = localStorage.getItem(CURRENT_MEAL_PLAN_KEY);
+    return data ? JSON.parse(data) : [];
+  },
+
+  saveCurrentMealPlan: (recipes: Recipe[]): void => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(CURRENT_MEAL_PLAN_KEY, JSON.stringify(recipes));
+  },
+
+  clearCurrentMealPlan: (): void => {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(CURRENT_MEAL_PLAN_KEY);
   },
 };
