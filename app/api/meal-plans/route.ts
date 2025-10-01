@@ -5,12 +5,13 @@ import { UserPreferences } from '@/lib/types';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { apiKey, preferences, numberOfDays = 4 } = body;
+    const { apiKey, preferences, numberOfDays = 4, aiModel } = body;
 
     console.log('Received meal plan request:', {
       hasApiKey: !!apiKey,
       preferences: preferences?.dietType,
-      numberOfDays
+      numberOfDays,
+      aiModel
     });
 
     if (!apiKey) {
@@ -30,7 +31,8 @@ export async function POST(request: NextRequest) {
     const client = new OpenRouterClient(apiKey);
     const recipes = await client.generateMealPlan(
       preferences as UserPreferences,
-      numberOfDays
+      numberOfDays,
+      aiModel
     );
 
     console.log(`Successfully generated ${recipes.length} recipes`);

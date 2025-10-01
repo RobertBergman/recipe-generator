@@ -11,7 +11,7 @@ import { storage } from '@/lib/utils/storage';
 
 interface SettingsModalProps {
   onClose: () => void;
-  onSave: (apiKey: string, preferences: UserPreferences) => void;
+  onSave: (apiKey: string, preferences: UserPreferences, aiModel: string) => void;
 }
 
 const DIET_TYPES: { value: DietType; label: string }[] = [
@@ -38,6 +38,7 @@ const STORES: { value: Store; label: string }[] = [
 
 export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
   const [apiKey, setApiKey] = useState('');
+  const [aiModel, setAiModel] = useState('z-ai/glm-4.6');
   const [dietType, setDietType] = useState<DietType>('balanced');
   const [location, setLocation] = useState('');
   const [servingSize, setServingSize] = useState('4');
@@ -47,6 +48,7 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
   useEffect(() => {
     const settings = storage.getSettings();
     if (settings?.openRouterApiKey) setApiKey(settings.openRouterApiKey);
+    if (settings?.aiModel) setAiModel(settings.aiModel);
     if (settings?.userPreferences) {
       const prefs = settings.userPreferences;
       setDietType(prefs.dietType);
@@ -74,7 +76,7 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
       restrictions: restrictions ? restrictions.split(',').map((r) => r.trim()) : [],
     };
 
-    onSave(apiKey, preferences);
+    onSave(apiKey, preferences, aiModel);
     onClose();
   };
 
@@ -113,6 +115,26 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
                   openrouter.ai/keys
                 </a>
               </p>
+
+              <div className="mt-4">
+                <Input
+                  label="AI Model"
+                  value={aiModel}
+                  onChange={(e) => setAiModel(e.target.value)}
+                  placeholder="z-ai/glm-4.6"
+                />
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  Browse models at{' '}
+                  <a
+                    href="https://openrouter.ai/models"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    openrouter.ai/models
+                  </a>
+                </p>
+              </div>
             </div>
 
             <div>

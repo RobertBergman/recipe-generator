@@ -53,6 +53,7 @@ export default function Home() {
           apiKey: settings.openRouterApiKey,
           preferences: settings.userPreferences,
           numberOfDays: 4, // Generate 4 days worth of meals (12 recipes total)
+          aiModel: settings.aiModel || 'z-ai/glm-4.6',
         }),
       });
 

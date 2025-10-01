@@ -9,8 +9,8 @@ import { UserPreferences } from '@/lib/types';
 export function LayoutClient({ children }: { children: React.ReactNode }) {
   const [showSettings, setShowSettings] = useState(false);
 
-  const handleSaveSettings = (apiKey: string, preferences: UserPreferences) => {
-    storage.saveSettings({ openRouterApiKey: apiKey, userPreferences: preferences });
+  const handleSaveSettings = (apiKey: string, preferences: UserPreferences, aiModel: string) => {
+    storage.saveSettings({ openRouterApiKey: apiKey, userPreferences: preferences, aiModel });
     setShowSettings(false);
     // Dispatch custom event to notify other components
     window.dispatchEvent(new CustomEvent('settingsChanged'));

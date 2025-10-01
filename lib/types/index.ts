@@ -80,6 +80,7 @@ export interface ShoppingList {
 export interface AppSettings {
   openRouterApiKey?: string;
   userPreferences?: UserPreferences;
+  aiModel?: string;
 }
 
 export interface MealSlot {

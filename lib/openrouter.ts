@@ -38,7 +38,8 @@ export class OpenRouterClient {
 
   async generateMealPlan(
     preferences: UserPreferences,
-    numberOfDays: number = 4
+    numberOfDays: number = 4,
+    model: string = 'z-ai/glm-4.6'
   ): Promise<Recipe[]> {
     // Generate 4 breakfasts, 4 lunches, 4 dinners = 12 recipes
     const totalMeals = numberOfDays * 3;
@@ -83,7 +84,7 @@ CRITICAL: Include "mealType" field in EVERY recipe.
 Return ONLY JSON array. No markdown, no extra text.`;
 
     const response = await this.chat({
-      model: 'z-ai/glm-4.6',
+      model,
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
