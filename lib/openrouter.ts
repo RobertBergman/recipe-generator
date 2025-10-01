@@ -141,8 +141,8 @@ Return ONLY JSON array. No markdown, no extra text.`;
           const recipes: Recipe[] = JSON.parse(partialJson);
           console.log(`Successfully parsed ${recipes.length} recipes from truncated response`);
           return recipes;
-        } catch {
-          console.error('Failed to parse even after cleanup');
+        } catch (retryError) {
+          console.error('Failed to parse even after cleanup', retryError);
         }
       }
 

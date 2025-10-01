@@ -34,22 +34,26 @@ export function RecipeLibrary({ onClose, fullPage = false }: RecipeLibraryProps)
   }, []);
 
   useEffect(() => {
-    let filtered = recipes;
+    const filterRecipes = () => {
+      let filtered = recipes;
 
-    // Filter by meal type
-    if (selectedMealType !== 'all') {
-      filtered = filtered.filter(r => r.mealType === selectedMealType);
-    }
-
-    // Filter by search query
-    if (searchQuery) {
-      filtered = storage.searchRecipes(searchQuery);
+      // Filter by meal type
       if (selectedMealType !== 'all') {
         filtered = filtered.filter(r => r.mealType === selectedMealType);
       }
-    }
 
-    setFilteredRecipes(filtered);
+      // Filter by search query
+      if (searchQuery) {
+        filtered = storage.searchRecipes(searchQuery);
+        if (selectedMealType !== 'all') {
+          filtered = filtered.filter(r => r.mealType === selectedMealType);
+        }
+      }
+
+      setFilteredRecipes(filtered);
+    };
+
+    filterRecipes();
   }, [recipes, selectedMealType, searchQuery]);
 
   const loadRecipes = () => {
