@@ -83,7 +83,7 @@ CRITICAL: Include "mealType" field in EVERY recipe.
 Return ONLY JSON array. No markdown, no extra text.`;
 
     const response = await this.chat({
-      model: 'anthropic/claude-sonnet-4.5',
+      model: 'z-ai/glm-4.6',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
