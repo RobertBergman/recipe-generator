@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { RecipeCard } from '@/components/recipes/RecipeCard';
 import { RecipeDetail } from '@/components/recipes/RecipeDetail';
 import { ChefHat, Loader2 } from 'lucide-react';
@@ -119,7 +119,7 @@ export default function Home() {
             <CardContent className="pt-8 pb-8">
               <div className="text-center space-y-6">
                 <div className="space-y-3">
-                  <h3 className="text-xl font-semibold">Let's Get Started</h3>
+                  <h3 className="text-xl font-semibold">Let&apos;s Get Started</h3>
                   <p className="text-gray-600 dark:text-gray-400">
                     Configure your meal preferences in Settings to begin generating personalized meal plans.
                   </p>
@@ -162,7 +162,7 @@ export default function Home() {
               Ready to Create Your Meal Plan?
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Let's generate delicious, personalized recipes based on your preferences and what's on sale.
+              Let&apos;s generate delicious, personalized recipes based on your preferences and what&apos;s on sale.
             </p>
           </div>
 
