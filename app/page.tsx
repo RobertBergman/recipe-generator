@@ -100,82 +100,134 @@ export default function Home() {
   };
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="min-h-[calc(100vh-4rem)]">
       {!hasSettings ? (
-        <Card className="max-w-2xl mx-auto">
-          <CardHeader>
-            <CardTitle>Welcome to Recipe Generator!</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="mb-4">
-              Get started by configuring your meal preferences in Settings.
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-primary-light rounded-2xl mb-6 shadow-lg">
+              <ChefHat className="w-10 h-10 text-white" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Welcome to Recipe Generator!
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Your AI-powered meal planning assistant. Get personalized recipes based on your preferences and local store sales.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+
+          <Card className="max-w-2xl mx-auto shadow-xl border-2">
+            <CardContent className="pt-8 pb-8">
+              <div className="text-center space-y-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-semibold">Let's Get Started</h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    Configure your meal preferences in Settings to begin generating personalized meal plans.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 text-left bg-muted p-6 rounded-xl">
+                  <div className="flex gap-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">1</div>
+                    <div>
+                      <p className="font-medium">Set Your Preferences</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Tell us about your dietary needs and preferences</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">2</div>
+                    <div>
+                      <p className="font-medium">Generate Meal Plans</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">AI creates personalized recipes just for you</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">3</div>
+                    <div>
+                      <p className="font-medium">Organize & Shop</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Plan your week and create shopping lists</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       ) : recipes.length === 0 ? (
-        <Card className="max-w-2xl mx-auto">
-          <CardHeader>
-            <CardTitle>Generate Your Meal Plan</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="mb-6 text-gray-600 dark:text-gray-400">
-              Click the button below to generate a personalized meal plan based on your
-              preferences and local store sales.
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-primary-light rounded-2xl mb-6 shadow-lg animate-bounce">
+              <ChefHat className="w-10 h-10 text-white" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+              Ready to Create Your Meal Plan?
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Let's generate delicious, personalized recipes based on your preferences and what's on sale.
             </p>
-            <Button
-              onClick={handleGenerateMealPlan}
-              disabled={loading}
-              size="lg"
-              className="w-full"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  Generating Meal Plan...
-                </>
-              ) : (
-                <>
-                  <ChefHat className="w-5 h-5 mr-2" />
-                  Generate Meal Plan
-                </>
+          </div>
+
+          <Card className="max-w-2xl mx-auto shadow-xl border-2">
+            <CardContent className="pt-8 pb-8">
+              <Button
+                onClick={handleGenerateMealPlan}
+                disabled={loading}
+                size="lg"
+                className="w-full h-14 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-6 h-6 mr-3 animate-spin" />
+                    Generating Your Perfect Meal Plan...
+                  </>
+                ) : (
+                  <>
+                    <ChefHat className="w-6 h-6 mr-3" />
+                    Generate My Meal Plan
+                  </>
+                )}
+              </Button>
+              {error && (
+                <div className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded">
+                  <p className="text-red-700 dark:text-red-400 font-medium">{error}</p>
+                </div>
               )}
-            </Button>
-            {error && (
-              <p className="text-red-500 mt-4 text-center">{error}</p>
-            )}
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       ) : (
-        <div>
-          <div className="flex justify-between items-center mb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
-              <h2 className="text-3xl font-bold">Your Meal Plan</h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                {recipes.length} delicious recipes
+              <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Your Meal Plan
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">
+                {recipes.length} delicious recipes crafted for you
               </p>
             </div>
             <Button
               onClick={handleGenerateMealPlan}
               disabled={loading}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 shadow-lg hover:shadow-xl transition-all"
+              size="lg"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-5 h-5 animate-spin" />
                   Regenerating...
                 </>
               ) : (
                 <>
-                  <ChefHat className="w-4 h-4" />
-                  Regenerate
+                  <ChefHat className="w-5 h-5" />
+                  Regenerate Plan
                 </>
               )}
             </Button>
           </div>
 
           {error && (
-            <div className="bg-red-100 dark:bg-red-900/20 border border-red-400 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-6">
-              {error}
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded-lg">
+              <p className="text-red-700 dark:text-red-400 font-medium">{error}</p>
             </div>
           )}
 
