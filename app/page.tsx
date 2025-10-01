@@ -17,8 +17,20 @@ export default function Home() {
   const [hasSettings, setHasSettings] = useState(false);
 
   useEffect(() => {
-    const settings = storage.getSettings();
-    setHasSettings(!!(settings?.openRouterApiKey && settings?.userPreferences));
+    const checkSettings = () => {
+      const settings = storage.getSettings();
+      setHasSettings(!!(settings?.openRouterApiKey && settings?.userPreferences));
+    };
+
+    // Check settings on mount
+    checkSettings();
+
+    // Listen for settings changes
+    window.addEventListener('settingsChanged', checkSettings);
+
+    return () => {
+      window.removeEventListener('settingsChanged', checkSettings);
+    };
   }, []);
 
   const handleGenerateMealPlan = async () => {

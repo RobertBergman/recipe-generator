@@ -89,7 +89,7 @@ Return ONLY JSON array. No markdown, no extra text.`;
         { role: 'user', content: userPrompt },
       ],
       temperature: 1.0,
-      max_tokens: 20000,
+      max_tokens: 50000,
     });
 
     const content = response.choices[0]?.message?.content;

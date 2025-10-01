@@ -12,6 +12,8 @@ export function LayoutClient({ children }: { children: React.ReactNode }) {
   const handleSaveSettings = (apiKey: string, preferences: UserPreferences) => {
     storage.saveSettings({ openRouterApiKey: apiKey, userPreferences: preferences });
     setShowSettings(false);
+    // Dispatch custom event to notify other components
+    window.dispatchEvent(new CustomEvent('settingsChanged'));
   };
 
   return (
