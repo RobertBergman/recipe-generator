@@ -19,7 +19,8 @@ export default function Home() {
   useEffect(() => {
     const checkSettings = () => {
       const settings = storage.getSettings();
-      setHasSettings(!!(settings?.openRouterApiKey && settings?.userPreferences));
+      // Only require user preferences, API key is now optional (can use server-side key)
+      setHasSettings(!!settings?.userPreferences);
     };
 
     // Check settings on mount
@@ -45,8 +46,8 @@ export default function Home() {
 
     try {
       const settings = storage.getSettings();
-      if (!settings?.openRouterApiKey || !settings?.userPreferences) {
-        setError('Please configure your settings first');
+      if (!settings?.userPreferences) {
+        setError('Please configure your meal preferences in settings first');
         return;
       }
 
@@ -107,7 +108,7 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <p className="mb-4">
-              Get started by configuring your OpenRouter API key and meal preferences in Settings.
+              Get started by configuring your meal preferences in Settings.
             </p>
           </CardContent>
         </Card>

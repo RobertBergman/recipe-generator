@@ -17,7 +17,7 @@ A modern full-stack application that generates personalized meal plans based on 
 ### Prerequisites
 
 - Node.js 20 or higher
-- An OpenRouter API key ([get one here](https://openrouter.ai/keys))
+- An OpenRouter API key ([get one here](https://openrouter.ai/keys)) - optional if deploying with server-side key
 
 ### Installation
 
@@ -26,7 +26,15 @@ A modern full-stack application that generates personalized meal plans based on 
 npm install
 ```
 
-2. Run the development server:
+2. (Optional) Configure server-side API key:
+```bash
+cp .env.example .env.local
+# Edit .env.local and add your OpenRouter API key
+```
+
+If you configure a server-side API key in `.env.local`, users can use the app without providing their own key. The API key will be kept secure on the server and never exposed to clients.
+
+3. Run the development server:
 ```bash
 npm run dev
 ```

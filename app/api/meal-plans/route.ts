@@ -7,16 +7,22 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { apiKey, preferences, numberOfDays = 4, aiModel } = body;
 
+    // Use server-side API key as fallback if user doesn't provide their own
+    const serverApiKey = process.env.OPENROUTER_API_KEY;
+    const effectiveApiKey = apiKey || serverApiKey;
+
     console.log('Received meal plan request:', {
-      hasApiKey: !!apiKey,
+      hasClientApiKey: !!apiKey,
+      hasServerApiKey: !!serverApiKey,
+      usingServerKey: !apiKey && !!serverApiKey,
       preferences: preferences?.dietType,
       numberOfDays,
       aiModel
     });
 
-    if (!apiKey) {
+    if (!effectiveApiKey) {
       return NextResponse.json(
-        { error: 'OpenRouter API key is required' },
+        { error: 'OpenRouter API key is required. Please configure it in settings or contact the administrator.' },
         { status: 400 }
       );
     }
@@ -28,7 +34,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const client = new OpenRouterClient(apiKey);
+    const client = new OpenRouterClient(effectiveApiKey);
     const recipes = await client.generateMealPlan(
       preferences as UserPreferences,
       numberOfDays,

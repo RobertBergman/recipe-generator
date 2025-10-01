@@ -98,14 +98,14 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
             <div>
               <h4 className="font-bold mb-4">API Configuration</h4>
               <Input
-                label="OpenRouter API Key"
+                label="OpenRouter API Key (Optional)"
                 type="password"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
-                placeholder="sk-or-..."
+                placeholder="sk-or-... (leave blank to use default)"
               />
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                Get your API key from{' '}
+                Leave blank to use the default API key, or provide your own from{' '}
                 <a
                   href="https://openrouter.ai/keys"
                   target="_blank"
@@ -193,7 +193,7 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
             </div>
 
             <div className="flex gap-3 pt-4">
-              <Button onClick={handleSave} className="flex-1" disabled={!apiKey}>
+              <Button onClick={handleSave} className="flex-1">
                 Save Settings
               </Button>
               <Button onClick={onClose} variant="secondary">
