@@ -44,6 +44,8 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
   const [servingSize, setServingSize] = useState('4');
   const [selectedStores, setSelectedStores] = useState<Store[]>(['walmart']);
   const [restrictions, setRestrictions] = useState('');
+  const [reducedCooking, setReducedCooking] = useState(false);
+  const [travelMode, setTravelMode] = useState(false);
 
   useEffect(() => {
     const settings = storage.getSettings();
@@ -56,6 +58,8 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
       setServingSize(prefs.servingSize.toString());
       setSelectedStores(prefs.preferredStores);
       setRestrictions(prefs.restrictions?.join(', ') || '');
+      setReducedCooking(prefs.reducedCooking || false);
+      setTravelMode(prefs.travelMode || false);
     }
   }, []);
 
@@ -74,6 +78,8 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
       servingSize: parseInt(servingSize),
       preferredStores: selectedStores,
       restrictions: restrictions ? restrictions.split(',').map((r) => r.trim()) : [],
+      reducedCooking,
+      travelMode,
     };
 
     onSave(apiKey, preferences, aiModel);
@@ -189,6 +195,41 @@ export function SettingsModal({ onClose, onSave }: SettingsModalProps) {
                     <span>{store.label}</span>
                   </label>
                 ))}
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Recipe Generation Options</h4>
+              <div className="space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={reducedCooking}
+                    onChange={(e) => setReducedCooking(e.target.checked)}
+                    className="w-4 h-4 mt-1"
+                  />
+                  <div>
+                    <div className="font-medium">Reduced cooking requirements</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                      Generate recipes with minimal cooking time, simple preparation, and fewer steps
+                    </div>
+                  </div>
+                </label>
+
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={travelMode}
+                    onChange={(e) => setTravelMode(e.target.checked)}
+                    className="w-4 h-4 mt-1"
+                  />
+                  <div>
+                    <div className="font-medium">Travel mode</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                      Optimize recipes for travel with portable meals, minimal equipment, and easy prep
+                    </div>
+                  </div>
+                </label>
               </div>
             </div>
 

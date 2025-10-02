@@ -71,10 +71,32 @@ category: "protein", "produce", "dairy", "pantry", or "other"
     const timestamp = Date.now();
     const randomSeed = Math.random().toString(36).substring(7);
 
+    // Build additional constraints based on preferences
+    let additionalConstraints = '';
+
+    if (preferences.reducedCooking) {
+      additionalConstraints += `\n\nREDUCED COOKING MODE:
+- Prioritize recipes with 20 minutes or less total prep + cook time
+- Use simple cooking methods (one-pot, sheet pan, no-cook, microwave)
+- Limit recipes to 3-4 steps maximum
+- Favor pre-prepped or convenience ingredients when appropriate
+- Include quick assembly meals, salads, and sandwiches`;
+    }
+
+    if (preferences.travelMode) {
+      additionalConstraints += `\n\nTRAVEL MODE:
+- Focus on portable, easy-to-pack meals
+- Minimize need for kitchen equipment (consider hotel room, Airbnb with limited tools)
+- Include recipes that travel well in containers
+- Suggest make-ahead options that can be eaten cold or reheated in microwave
+- Avoid recipes requiring specialized equipment or extensive mise en place
+- Consider shelf-stable ingredients and recipes suitable for coolers`;
+    }
+
     const userPrompt = `Create ${totalMeals} UNIQUE ${preferences.dietType} recipes for ${preferences.servingSize} people for a ${numberOfDays}-day meal plan.
 EXACTLY ${numberOfDays} breakfast recipes, ${numberOfDays} lunch recipes, ${numberOfDays} dinner recipes.
 ${preferences.restrictions ? `Avoid: ${preferences.restrictions.join(', ')}` : ''}
-Location: ${preferences.location || 'USA'}
+Location: ${preferences.location || 'USA'}${additionalConstraints}
 
 IMPORTANT: Generate completely NEW and DIFFERENT recipes each time. Be creative and diverse. Don't repeat common dishes.
 Use seasonal ingredients, international cuisines, and varied cooking methods.

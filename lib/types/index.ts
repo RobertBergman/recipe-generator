@@ -22,6 +22,8 @@ export interface UserPreferences {
   budget?: number;
   servingSize: number;
   restrictions?: string[];
+  reducedCooking?: boolean;
+  travelMode?: boolean;
 }
 
 export interface Ingredient {
