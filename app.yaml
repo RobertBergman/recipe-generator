@@ -6,13 +6,10 @@ instance_class: F2
 
 env_variables:
   NODE_ENV: production
+  # Add your OpenRouter API key here for server-side use
+  # OPENROUTER_API_KEY: your-api-key-here
 
 handlers:
-  - url: /_next/static
-    static_dir: .next/static
-    secure: always
-    expiration: "365d"
-
   - url: /.*
     script: auto
     secure: always
